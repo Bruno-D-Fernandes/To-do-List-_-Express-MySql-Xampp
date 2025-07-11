@@ -1,19 +1,19 @@
-require('dotenv').config(); 
-const mysql = require('mysql2/promise');
+require('dotenv').config(); // depois estudar isso
+const mysql2 = require('mysql2/promise');
 
-const poolConnection = mysql.createPool({
-host: process.env.DB_HOST, 
-login: process.env.DB_USER,
-password: process.env.DB_PASSWORD,
-database: process.env.DB_NAME,
-waitForConnections: true, 
-connectionLimit: 10,
-queueLimit: 0, 
+const poolConnection = mysql2.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'dbTodoListJAVA',
+    waitForConnections: true, 
+    connectionLimit: 10,
+    queueLimit: 0, 
 });
 
 async function testConnection() {
     try {
-        const connection = await pool.getConnection(); 
+        const connection = await poolConnection.getConnection(); 
         console.log('Conectado ao banco de dados MySQL!');
         connection.release();
     } catch (error) {
