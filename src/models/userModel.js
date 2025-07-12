@@ -25,7 +25,7 @@ class UserModel {
             connection = await pool.getConnection();
             const [resultado] = await connection.query(
                 'UPDATE tbUsuario SET nomeUsuario = ?, emailUsuario = ?, senhaUsuario = ? WHERE idUsuario = ?',
-                [nomeUser, emailUser, senhaUser, idUsuario]
+                [nomeUser, emailUser, senhaUser, idUser]
             );
             return resultado;
         } catch (e) {

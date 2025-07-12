@@ -1,21 +1,15 @@
-const express = require('express');
-//
 // const cors = require('cors'); 
-const taskModel = require('./src/models/ListModel');
-
-const app = express();
-const PORT = process.env.PORT || 3000; 
-
-app.use(express.json());
 // app.use(cors());  ver o que é e como funciona esse cors
+const express = require('express');
+const app = require('./src/app');
+const PORT = process.env.PORT || 3000;
 
-taskModel.createTaskList("Sexta task", 1)
+// app.use(express.json());
+// taskModel.createTaskList("Sexta task", 1)
 // taskModel.listarListas(1);
 
-
 app.listen(PORT, () => {
-    console.log(`Porta ${PORT} aberta!`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
-
 
 
