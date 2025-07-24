@@ -12,8 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.1.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "mysql2": "^3.14.1"
+    "mysql2": "^3.14.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

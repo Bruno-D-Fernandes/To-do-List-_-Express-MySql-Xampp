@@ -1,0 +1,48 @@
+.mainCadastro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--CorFundo);
+}
+
+.titleCadastro{
+    font-family: var(--fonteTitulo);
+    color: var(--CorPrincipal);
+    font-size: 7.5rem;
+    letter-spacing: 6.24px;
+}
+
+.subTitleCadastro{
+    font-family: var(--fonteTexto);
+    color: var(--CorSecundaria);
+    font-size: 3rem;
+    letter-spacing: 6.24px;
+    margin-bottom: 2rem; /* Espaçamento entre o título e o formulário | Ver se vai ficar*/
+}
+
+.containerCadastro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 36.4375rem;
+    height: 42.25rem;
+    background-color: #fff;
+    border-radius: 20px;
+
+    box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonCadastro{
+    width: 17.625rem;
+    height: 4.875rem;
+    background-color: var(--CorSecundaria);
+    border-radius: 20px;
+
+    font-family: var(--fonteTexto);
+    font-size: 2rem;
+    color: #fff;
+}

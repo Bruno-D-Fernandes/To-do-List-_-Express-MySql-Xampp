@@ -3,21 +3,23 @@ const pool = require('../config/dataBase');
 class UserModel {
 
     static async createUser(nomeUser, emailUser, senhaUser) {
-        let connection;
-        try {
-            connection = await pool.getConnection();
-            const [resultado] = await connection.query(
-                'INSERT INTO tbUsuario (nomeUsuario, emailUsuario, senhaUsuario) VALUES (?, ?, ?)',
-                [nomeUser, emailUser, senhaUser]
-            );
-            return resultado;
-        } catch (e) {
-            console.log('Erro ao criar usuário: ', e);
-            throw e;
-        } finally {
-            if (connection) connection.release();
-        }
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        const [result] = await connection.query(
+        'INSERT INTO tbUsuario (nomeUsuario, emailUsuario, senhaUsuario) VALUES (?, ?, ?)',
+        [nomeUser, emailUser, senhaUser]
+        );
+        return result;
+    } catch (e) {
+        throw e;
+    } finally {
+        if (connection) connection.release();
     }
+    }
+
+// arrumar query disso aqui
+
 
     static async updateUser(idUser, nomeUser, emailUser, senhaUser) {
         let connection;
@@ -80,6 +82,23 @@ class UserModel {
             return resultado;
         } catch (e) {
             console.error('Error fetching user by idUsuario:', e);
+            throw e;
+        } finally {
+            if (connection) connection.release();
+        }
+    }
+
+    static async getUserByEmail(emailUser) {
+        let connection;
+        try {
+            connection = await pool.getConnection();
+            const [resultado] = await connection.query(
+                'SELECT * FROM tbUsuario WHERE emailUsuario = ?',
+                [emailUser]
+            );
+            return resultado;
+        } catch (e) {
+            console.error('Error fetching user by emailUsuario:', e);
             throw e;
         } finally {
             if (connection) connection.release();
