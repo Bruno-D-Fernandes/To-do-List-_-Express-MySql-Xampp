@@ -18,8 +18,6 @@ class UserModel {
     }
     }
 
-// arrumar query disso aqui
-
 
     static async updateUser(idUser, nomeUser, emailUser, senhaUser) {
         let connection;
@@ -102,6 +100,7 @@ class UserModel {
             throw e;
         } finally {
             if (connection) connection.release();
+
         }
     }
 

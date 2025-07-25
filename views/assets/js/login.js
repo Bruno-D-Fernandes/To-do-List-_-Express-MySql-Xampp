@@ -5,11 +5,13 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
     const senha = this.senha.value;
 
     try {
-      const resposta = await fetch('/cadastrar', {
+      const resposta = await fetch('/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha })
       });
+
+      console.log('passou do fetch')
 
       const dados = await resposta.json();
 
@@ -18,9 +20,11 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
       div.innerText = dados.mensagem || dados.erro;
 
       if (resposta.ok) {
-        // redirecionar após sucesso (opcional)
-        // setTimeout(() => window.location.href = '/login', 1000);
+        const token = dados.token;
+        localStorage.setItem('token', token);
+        window.location.href = '/home';
       }
+
     } catch (erro) {
       document.getElementById('mensagem').innerText = 'Erro na requisição';
     }

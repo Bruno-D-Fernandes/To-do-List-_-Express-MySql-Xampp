@@ -1,4 +1,7 @@
+require('dotenv').config(); 
 const UserModel = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+
 
 // Login de usuário
 
@@ -8,12 +11,24 @@ exports.loginPage = (req, res) => {
 
 exports.login = async (req, res) => {
     const { email, senha } = req.body;
-    const user = await UserModel.getUserByEmail(email);
-    if (user && user.senha === senha) {
-        // sessão/cookie
-        res.redirect('/tarefas');
+    const [ user ] = await UserModel.getUserByEmail(email);
+
+    // console.log({ email, senha })
+    // console.log(user);
+
+    if (user && user.senhaUsuario == senha) {
+        delete user.senha;
+        const payload = { 
+            id: user.idUsuario, 
+            email: user.emailUsuario, 
+            nome: user.nomeUsuario };
+
+        const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+
+        res.json({mensagem: 'Login realizado com sucesso', token});
     } else {
-        return res.status(400).json({ erro: 'Email ou senha inválidos' });
+        return res.status(400).json({ erro: 'Email ou senha inválidos'});
     }
 };
 

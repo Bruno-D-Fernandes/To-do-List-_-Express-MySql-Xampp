@@ -15,7 +15,7 @@
 
     <div class="containerLogin">
         <h2 class="subTitleLogin">LOGIN</h2>
-        <form method="POST" action="/login">
+        <form id="formCadastro">
             <label for="email">EMAIL</label>
             <input type="email" id="email" name="email" required>
             <br>
@@ -24,9 +24,12 @@
             <br>
             <button class="buttonLogin" type="submit">LOGIN</button>
         </form>
-        <a href="/cadastro">CADASTRAR-SE</a>
+        <a href="/cadastro" >CADASTRAR-SE</a>
+        <div id="mensagem"></div>
     </div>
 
     </main>
+
+    <script src="/js/login.js"></script>
 </body>
 </html>
