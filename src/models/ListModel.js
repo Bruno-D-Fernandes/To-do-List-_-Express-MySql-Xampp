@@ -54,9 +54,15 @@ class ListModel {
         let connection;
         try {
             connection = await pool.getConnection();
+
+            console.log('MODEL:', idUsuario);
+
             const [rows] = await connection.query(
                 'SELECT nomeLista FROM tbLista WHERE idUsuario = ?', [idUsuario]
             );
+
+            console.log('ListModel listarTaskLists:', rows);
+
             return rows;
         } catch (e) {
             console.error('Erro ao listar listas:', e);

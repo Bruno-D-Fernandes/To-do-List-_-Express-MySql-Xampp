@@ -34,7 +34,9 @@ class ListController {
     static async queryLists(req, res) {
         try {
             const {idUsuario} = req.body;
+            console.log('teste')
             const resultado = await listModel.listarTaskLists(idUsuario);
+
             res.status(201).json(resultado);
         } catch (e) {
             res.status(500).json({ erro: 'Erro ao consultar listas', detalhe: e.message });
