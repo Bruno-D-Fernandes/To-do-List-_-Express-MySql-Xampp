@@ -1,50 +1,64 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const UserModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
-
-// Login de usuário
+// --- Login de usuário ---
 
 exports.loginPage = (req, res) => {
     res.render('login');
 };
 
 exports.login = async (req, res) => {
-    const { email, senha } = req.body;
-    const [ user ] = await UserModel.getUserByEmail(email);
+    try {
+        const { email, senha } = req.body;
+        const [user] = await UserModel.getUserByEmail(email);
 
-    // console.log({ email, senha })
-    // console.log(user);
+        if (!user || user.senhaUsuario !== senha) {
+            return res.status(401).json({ erro: 'Email ou senha inválidos' });
+        }
 
-    if (user && user.senhaUsuario == senha) {
-        delete user.senha;
-        const payload = { 
-            id: user.idUsuario, 
-            email: user.emailUsuario, 
-            nome: user.nomeUsuario };
+        const payload = {
+            id: user.idUsuario,
+            email: user.emailUsuario,
+            nome: user.nomeUsuario
+        };
 
         const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
 
+        res.status(200).json({ 
+            ok: true,
+            mensagem: 'Login realizado com sucesso',
+            token
+        });
 
-        res.json({mensagem: 'Login realizado com sucesso', token});
-    } else {
-        return res.status(400).json({ erro: 'Email ou senha inválidos'});
+    } catch (error) {
+        res.status(500).json({ erro: 'Ocorreu um erro interno no servidor.', detalhe: error.message });
     }
 };
 
-// Cadastro de usuário
+// --- Cadastro de usuário ---
 
 exports.cadastroPage = (req, res) => {
     res.render('cadastro');
 };
 
 exports.cadastrar = async (req, res) => {
-    const { nome, email, senha } = req.body;
-    const [user] = await UserModel.getUserByEmail(email);
-    if (user) {
-        return res.status(400).json({ erro: 'Email já cadastrado' });
-    } else {
-        await UserModel.createUser(nome, email, senha);
-        return res.status(201).json({ mensagem: 'Usuário cadastrado com sucesso' });
+    try {
+        const { nome, email, senha } = req.body;
+        const [existingUser] = await UserModel.getUserByEmail(email);
+
+        if (existingUser) {
+            return res.status(409).json({ erro: 'Email já cadastrado' });
+        }
+
+        const result = await UserModel.createUser(nome, email, senha);
+        res.status(201).json({
+            ok: true,
+            mensagem: 'Usuário cadastrado com sucesso',
+            idUsuario: result.insertId
+        });
+
+    } catch (error) {
+        res.status(500).json({ erro: 'Ocorreu um erro interno ao cadastrar o usuário.', detalhe: error.message });
     }
 };

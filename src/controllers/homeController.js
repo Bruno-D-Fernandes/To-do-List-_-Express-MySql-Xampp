@@ -6,13 +6,20 @@ exports.homePage = (req, res) => {
 
 module.exports.carregarListaTarefas = async (req, res) => {
     try {
-        const {id, email, nome} = req.usuario;
-        const listaTarefas = await ListServices.queryList(id);
+        const idUsuario = req.usuario.id;
+        const listaTarefas = await ListServices.queryList(idUsuario);
 
-        console.log(listaTarefas);
-        res.status(200).json(listaTarefas);
+        res.status(200).json({
+            ok: true,
+            mensagem: 'Lista de tarefas carregada com sucesso.',
+            data: listaTarefas
+        });
     } catch (e) {
         console.error('Erro ao carregar lista de tarefas: ', e);
-        res.status(500).json({ erro: 'Erro ao carregar lista de tarefas', detalhe: e.message });
+        res.status(500).json({
+            ok: false,
+            erro: 'Erro ao carregar lista de tarefas',
+            detalhe: e.message
+        });
     }
-}
+};

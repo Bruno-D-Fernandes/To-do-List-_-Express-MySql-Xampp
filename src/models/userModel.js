@@ -100,7 +100,6 @@ class UserModel {
             throw e;
         } finally {
             if (connection) connection.release();
-
         }
     }
 

@@ -2,7 +2,7 @@
 
 Um projeto simples de uma lista de tarefas (To-do List) construído para demonstrar um CRUD (Create, Read, Update, Delete) completo. A aplicação utiliza Node.js com o framework Express no backend, EJS para renderização de views no lado do servidor e um banco de dados MySQL para persistência dos dados.
 
-## ✨ Funcionalidades
+## ✨ Funcionalidades   
 - [x] **Criar tarefas:** Adicionar novas tarefas à lista.
 - [x] **Visualizar tarefas:** Ver todas as tarefas cadastradas.
 - [x] **Editar tarefas:** Atualizar o título de uma tarefa existente.

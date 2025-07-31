@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 app.use('/home', homeRouter);
 // app.use('/registro', loginRouter);
 app.use('/login', loginRouter)
-app.use('/listas', listRouter);
+app.use('/lista', listRouter);
 app.use('/usuarios', userRouter);
 app.use('/task', taskRouter); 
 
